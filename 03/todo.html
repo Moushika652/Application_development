@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manifest — Daily Task Log</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #10151c;
+    --card: #1b2430;
+    --card-2: #212c3a;
+    --line: rgba(237,230,218,0.14);
+    --line-strong: rgba(237,230,218,0.28);
+    --ink: #ede6da;
+    --ink-dim: #8f9aa8;
+    --amber: #e8a33d;
+    --teal: #5fb79e;
+    --danger: #d9736c;
+    --radius: 10px;
+  }
+
+  *{ box-sizing: border-box; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+
+  body{
+    margin:0;
+    min-height:100vh;
+    background:
+      radial-gradient(ellipse at top, #182231 0%, var(--bg) 60%);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    display:flex;
+    justify-content:center;
+    padding: 48px 20px 80px;
+  }
+
+  .manifest{
+    width:100%;
+    max-width: 560px;
+  }
+
+  .manifest-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    margin-bottom: 22px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  .manifest-head h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-style:italic;
+    font-size: 2rem;
+    margin:0 0 4px;
+    letter-spacing: 0.2px;
+  }
+
+  .manifest-head .date{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--ink-dim);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .tally{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 1.4rem;
+    color: var(--amber);
+    text-align:right;
+    line-height:1;
+  }
+  .tally span{
+    display:block;
+    font-size: 0.65rem;
+    color: var(--ink-dim);
+    margin-top: 4px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .entry-row{
+    display:flex;
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+
+  .entry-row input[type="text"]{
+    flex:1;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    color: var(--ink);
+    font-family:'Inter', sans-serif;
+    font-size: 0.95rem;
+    padding: 12px 14px;
+    outline: none;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .entry-row input[type="text"]::placeholder{ color: var(--ink-dim); }
+  .entry-row input[type="text"]:focus{
+    border-color: var(--amber);
+    background: var(--card-2);
+  }
+  .entry-row input[type="text"]:focus-visible{
+    box-shadow: 0 0 0 2px rgba(232,163,61,0.25);
+  }
+
+  .add-btn{
+    background: var(--amber);
+    color: #1b1206;
+    border: none;
+    border-radius: var(--radius);
+    font-family:'IBM Plex Mono', monospace;
+    font-weight: 500;
+    font-size: 0.85rem;
+    padding: 0 20px;
+    cursor: pointer;
+    transition: transform 0.1s ease, background 0.15s ease;
+  }
+  .add-btn:hover{ background:#f2b458; }
+  .add-btn:active{ transform: scale(0.96); }
+  .add-btn:focus-visible{ outline: 2px solid var(--ink); outline-offset:2px; }
+
+  .filters-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom: 4px;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .filters{
+    display:flex;
+    gap: 4px;
+  }
+
+  .clear-btn{
+    background:none;
+    border:none;
+    color: var(--ink-dim);
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    cursor:pointer;
+    padding: 8px 4px;
+    transition: color 0.15s ease;
+  }
+  .clear-btn:hover{ color: var(--danger); }
+  .clear-btn:disabled{
+    opacity: 0.4;
+    cursor: default;
+  }
+  .clear-btn:disabled:hover{ color: var(--ink-dim); }
+  .clear-btn:focus-visible{ outline: 2px solid var(--danger); outline-offset: 2px; }
+  .filters button{
+    background:none;
+    border:none;
+    color: var(--ink-dim);
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 8px 12px;
+    cursor:pointer;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .filters button:hover{ color: var(--ink); }
+  .filters button.active{
+    color: var(--amber);
+    border-bottom-color: var(--amber);
+  }
+  .filters button:focus-visible{ outline: 2px solid var(--amber); outline-offset: 2px; }
+
+  .ledger{
+    list-style:none;
+    margin: 8px 0 0;
+    padding: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .ledger li{
+    display:flex;
+    align-items:center;
+    gap: 14px;
+    padding: 14px 4px;
+    border-bottom: 1px solid var(--line);
+    animation: rowIn 0.2s ease;
+  }
+
+  @keyframes rowIn{
+    from{ opacity:0; transform: translateY(-4px); }
+    to{ opacity:1; transform: translateY(0); }
+  }
+
+  .stamp{
+    flex-shrink:0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid var(--line-strong);
+    background: transparent;
+    cursor:pointer;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition: border-color 0.15s ease;
+  }
+  .stamp:hover{ border-color: var(--teal); }
+  .stamp:focus-visible{ outline: 2px solid var(--teal); outline-offset: 2px; }
+
+  .stamp .mark{
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid var(--teal);
+    color: var(--teal);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size: 13px;
+    font-weight:700;
+    opacity:0;
+    transform: scale(1.6) rotate(-18deg);
+    transition: none;
+  }
+
+  .ledger li.done .stamp{ border-color: var(--teal); }
+  .ledger li.done .stamp .mark{
+    animation: stampIn 0.28s cubic-bezier(.2,1.6,.4,1) forwards;
+  }
+  @keyframes stampIn{
+    0%{ opacity:0; transform: scale(1.8) rotate(-18deg); }
+    60%{ opacity:1; transform: scale(0.92) rotate(-4deg); }
+    100%{ opacity:1; transform: scale(1) rotate(0deg); }
+  }
+
+  .task-text{
+    flex:1;
+    font-size: 0.98rem;
+    line-height:1.4;
+    word-break: break-word;
+  }
+
+  .ledger li.done .task-text{
+    color: var(--ink-dim);
+    text-decoration: line-through;
+    text-decoration-color: var(--line-strong);
+  }
+
+  .remove-btn{
+    background:none;
+    border:none;
+    color: var(--ink-dim);
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 0.9rem;
+    cursor:pointer;
+    opacity:0;
+    transition: opacity 0.15s ease, color 0.15s ease;
+    padding: 4px 6px;
+  }
+  .ledger li:hover .remove-btn,
+  .ledger li:focus-within .remove-btn{ opacity:1; }
+  .remove-btn:hover{ color: var(--danger); }
+  .remove-btn:focus-visible{ outline: 2px solid var(--danger); opacity:1; }
+
+  .empty-state{
+    text-align:center;
+    padding: 40px 10px;
+    color: var(--ink-dim);
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+    line-height:1.7;
+  }
+  .empty-state strong{ color: var(--ink); display:block; font-family:'Fraunces', serif; font-style:italic; font-size:1.1rem; margin-bottom:6px; }
+
+  footer{
+    margin-top: 26px;
+    text-align:center;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--ink-dim);
+    letter-spacing: 0.04em;
+  }
+
+  @media (max-width: 480px){
+    .manifest-head h1{ font-size: 1.6rem; }
+    .tally{ font-size: 1.1rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="manifest">
+  <div class="manifest-head">
+    <div>
+      <h1>Today's Manifest</h1>
+      <div class="date" id="dateLabel"></div>
+    </div>
+    <div class="tally">
+      <span id="tallyValue">0/0</span>
+      <span>logged</span>
+    </div>
+  </div>
+
+  <div class="entry-row">
+    <input type="text" id="taskInput" placeholder="Enter a new line item…" maxlength="140" autofocus>
+    <button class="add-btn" id="addBtn">ADD</button>
+  </div>
+
+  <div class="filters-row">
+    <div class="filters" role="tablist" aria-label="Filter tasks">
+      <button class="active" data-filter="all">All</button>
+      <button data-filter="active">Active</button>
+      <button data-filter="done">Done</button>
+    </div>
+    <button class="clear-btn" id="clearBtn">Clear completed</button>
+  </div>
+
+  <ul class="ledger" id="ledger"></ul>
+
+  <footer>manifest — a task log that stamps itself</footer>
+</div>
+
+<script>
+  // Tasks persist across reloads using localStorage. If nothing has been
+  // saved yet (first visit), we fall back to a few sample rows.
+  const STORAGE_KEY = 'manifest-tasks';
+  const STORAGE_NEXT_ID_KEY = 'manifest-nextId';
+
+  function loadTasks(){
+    try{
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if(saved) return JSON.parse(saved);
+    }catch(e){ /* ignore corrupt/missing data and fall back below */ }
+    return [
+      { id: 1, text: 'Draft the quarterly manifest', done: true },
+      { id: 2, text: 'Review incoming shipments', done: false },
+      { id: 3, text: 'Reply to the harbor office', done: false }
+    ];
+  }
+
+  function loadNextId(){
+    try{
+      const saved = localStorage.getItem(STORAGE_NEXT_ID_KEY);
+      if(saved) return JSON.parse(saved);
+    }catch(e){ /* ignore */ }
+    return 4;
+  }
+
+  function saveTasks(){
+    try{
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+      localStorage.setItem(STORAGE_NEXT_ID_KEY, JSON.stringify(nextId));
+    }catch(e){ /* storage unavailable (e.g. private browsing) — fail silently */ }
+  }
+
+  let tasks = loadTasks();
+  let nextId = loadNextId();
+  let filter = 'all';
+
+  const ledger = document.getElementById('ledger');
+  const input = document.getElementById('taskInput');
+  const addBtn = document.getElementById('addBtn');
+  const tallyValue = document.getElementById('tallyValue');
+  const dateLabel = document.getElementById('dateLabel');
+  const filterBtns = document.querySelectorAll('.filters button');
+  const clearBtn = document.getElementById('clearBtn');
+
+  dateLabel.textContent = new Date().toLocaleDateString('en-US', {
+    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+  });
+
+  function addTask(text){
+    const trimmed = text.trim();
+    if(!trimmed) return;
+    tasks.push({ id: nextId++, text: trimmed, done: false });
+    input.value = '';
+    render();
+  }
+
+  function toggleTask(id){
+    const t = tasks.find(t => t.id === id);
+    if(t) t.done = !t.done;
+    render();
+  }
+
+  function removeTask(id){
+    tasks = tasks.filter(t => t.id !== id);
+    render();
+  }
+
+  function removeCompleted(){
+    tasks = tasks.filter(t => !t.done);
+    render();
+  }
+
+  function render(){
+    const visible = tasks.filter(t => {
+      if(filter === 'active') return !t.done;
+      if(filter === 'done') return t.done;
+      return true;
+    });
+
+    ledger.innerHTML = '';
+
+    if(visible.length === 0){
+      const empty = document.createElement('li');
+      empty.style.display = 'block';
+      empty.style.border = 'none';
+      empty.innerHTML = `
+        <div class="empty-state">
+          <strong>Nothing here.</strong>
+          ${filter === 'done' ? 'Nothing stamped complete yet.' : filter === 'active' ? 'Everything is squared away.' : 'Add your first line item above.'}
+        </div>`;
+      ledger.appendChild(empty);
+    } else {
+      visible.forEach(t => {
+        const li = document.createElement('li');
+        li.className = t.done ? 'done' : '';
+
+        const stampBtn = document.createElement('button');
+        stampBtn.className = 'stamp';
+        stampBtn.setAttribute('aria-label', t.done ? 'Mark as not done' : 'Mark as done');
+        stampBtn.innerHTML = '<span class="mark">✓</span>';
+        stampBtn.onclick = () => toggleTask(t.id);
+
+        const span = document.createElement('span');
+        span.className = 'task-text';
+        span.textContent = t.text;
+
+        const removeBtn = document.createElement('button');
+        removeBtn.className = 'remove-btn';
+        removeBtn.setAttribute('aria-label', 'Delete task');
+        removeBtn.textContent = '✕';
+        removeBtn.onclick = () => removeTask(t.id);
+
+        li.appendChild(stampBtn);
+        li.appendChild(span);
+        li.appendChild(removeBtn);
+        ledger.appendChild(li);
+      });
+    }
+
+    const done = tasks.filter(t => t.done).length;
+    tallyValue.textContent = `${done}/${tasks.length}`;
+    clearBtn.disabled = done === 0;
+
+    saveTasks();
+  }
+
+  addBtn.addEventListener('click', () => addTask(input.value));
+  input.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter') addTask(input.value);
+  });
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      filter = btn.dataset.filter;
+      render();
+    });
+  });
+
+  clearBtn.addEventListener('click', removeCompleted);
+
+  render();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Send a sample message to the Little Server Lab demo server.">
+  <title>Say hello | Little Server Lab</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navigation shell" aria-label="Main navigation">
+      <a class="brand" href="/" aria-label="Little Server Lab home"><span class="brand-mark">LS</span><span>little server <b>lab</b></span></a>
+      <div class="navigation-links">
+        <a href="/">Overview</a>
+        <a href="/about">How it works</a>
+        <a class="nav-cta active" href="/contact">Say hello <span aria-hidden="true">↗</span></a>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <section class="page-intro contact-intro shell">
+      <p class="kicker"><span class="section-number">02</span> Your turn to talk to the server</p>
+      <h1>Drop a little<br><span>note in the box.</span></h1>
+      <p>Fill this out and submit it. The server will check your details and send you right back here with a response.</p>
+    </section>
+    <section class="shell contact-layout">
+      <aside class="contact-note">
+        <span class="note-spark" aria-hidden="true">✳</span>
+        <p class="kicker">A note about this demo</p>
+        <h2>This is practice, not a mailbox.</h2>
+        <p>Your message is checked by the server, but nothing is saved and no email is sent. It’s just a safe way to try a form submission.</p>
+        <div class="request-recipe">
+          <p class="kicker">Under the hood</p>
+          <p><span>01</span> The form sends a <code>POST</code> request</p>
+          <p><span>02</span> Express checks the fields</p>
+          <p><span>03</span> You get a friendly response</p>
+        </div>
+      </aside>
+      <div class="form-card">
+        <div class="form-heading">
+          <div><p class="kicker">The little form</p><h2>Send a sample note</h2></div>
+          <span class="form-count">ALL FIELDS<br>REQUIRED</span>
+        </div>
+        <p id="form-status" class="form-status" role="status" aria-live="polite" hidden></p>
+        <form action="/contact" method="post">
+          <label for="name">What should we call you?</label>
+          <input id="name" name="name" type="text" placeholder="Your name" autocomplete="name" maxlength="100" required>
+
+          <label for="email">Where can we reach you?</label>
+          <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" maxlength="254" required>
+
+          <label for="message">What’s on your mind?</label>
+          <textarea id="message" name="message" rows="5" placeholder="Write a little something..." maxlength="2000" required></textarea>
+
+          <button class="button button-dark" type="submit">Send it along <span aria-hidden="true">→</span></button>
+        </form>
+        <p class="privacy-note"><span aria-hidden="true">◉</span> Demo only — your message won’t be stored.</p>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <a class="footer-brand" href="/">little server lab <span>✳</span></a>
+      <p>A hands-on introduction to Node.js. <span>Made for learning, not for launch.</span></p>
+      <a class="back-top" href="#">Back to top ↑</a>
+    </div>
+  </footer>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const status = document.getElementById('form-status');
+    if (params.has('sent')) {
+      status.textContent = 'Your note made it! The demo server received it, but nothing was saved or emailed.';
+      status.hidden = false;
+    } else if (params.has('error')) {
+      status.textContent = 'Something looks missing or mistyped. Check each field and give it another try.';
+      status.classList.add('form-status-error');
+      status.hidden = false;
+    }
+  </script>
+</body>
+</html>

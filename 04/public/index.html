@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A tiny, friendly introduction to building a website server with Node.js.">
+  <title>Little Server Lab | Home</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navigation shell" aria-label="Main navigation">
+      <a class="brand" href="/" aria-label="Little Server Lab home"><span class="brand-mark">LS</span><span>little server <b>lab</b></span></a>
+      <div class="navigation-links">
+        <a class="active" href="/">Overview</a>
+        <a href="/about">How it works</a>
+        <a class="nav-cta" href="/contact">Say hello <span aria-hidden="true">↗</span></a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero shell">
+      <div class="hero-copy">
+        <p class="kicker"><span class="status-dot"></span> A tiny web-server experiment</p>
+        <h1>One little server.<br><span>Three places to go.</span></h1>
+        <p class="hero-description">A small Node.js project that turns a few files into a website you can click around. No magic—just a server, some routes, and a browser.</p>
+        <div class="hero-actions">
+          <a class="button button-dark" href="/about">Take a look inside <span aria-hidden="true">→</span></a>
+          <span class="local-note"><span aria-hidden="true">●</span> Running on your computer</span>
+        </div>
+      </div>
+      <div class="terminal-card" aria-label="Example server terminal">
+        <div class="terminal-top"><div class="window-dots"><i></i><i></i><i></i></div><span>your terminal</span><span class="terminal-live">LIVE</span></div>
+        <div class="terminal-body">
+          <p><span class="prompt">$</span> npm start</p>
+          <p class="terminal-muted">starting the little server...</p>
+          <p><span class="terminal-check">✓</span> listening on <b>localhost:3000</b></p>
+          <p><span class="terminal-check">✓</span> ready for your browser</p>
+          <div class="terminal-rule"></div>
+          <p class="terminal-url">http://localhost:3000<span class="cursor"></span></p>
+        </div>
+        <div class="terminal-caption">A real server response, right on your machine.</div>
+      </div>
+      <div class="hero-stamp" aria-hidden="true">MADE<br>TO LEARN<span>✳</span></div>
+    </section>
+
+    <section class="route-section">
+      <div class="shell">
+        <div class="section-intro">
+          <p class="kicker">Pick a path</p>
+          <h2>Three pages, one small project.</h2>
+          <p>Each link goes somewhere different. Give them a try.</p>
+        </div>
+        <div class="route-grid">
+          <a class="route-card route-card-coral" href="/about">
+            <span class="route-index">01 / THE BUILD</span>
+            <span class="route-icon" aria-hidden="true">↘</span>
+            <h3>Behind the scenes</h3>
+            <p>See how the routes, files, and server fit together.</p>
+            <span class="route-link">Explore the setup <span aria-hidden="true">→</span></span>
+          </a>
+          <a class="route-card route-card-blue" href="/contact">
+            <span class="route-index">02 / YOUR TURN</span>
+            <span class="route-icon" aria-hidden="true">✎</span>
+            <h3>Try the form</h3>
+            <p>Send a sample note and watch the server respond.</p>
+            <span class="route-link">Open the form <span aria-hidden="true">→</span></span>
+          </a>
+          <div class="route-card route-card-lime">
+            <span class="route-index">03 / THE STACK</span>
+            <span class="route-icon" aria-hidden="true">{ }</span>
+            <h3>Keep it simple</h3>
+            <p>Node.js runs the app. Express connects the pages.</p>
+            <span class="stack-tags"><span>NODE.JS</span><span>EXPRESS</span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="launch-strip shell">
+      <div>
+        <p class="kicker">Want to run it yourself?</p>
+        <h2>Two commands and you’re in.</h2>
+      </div>
+      <div class="launch-commands"><code><span>$</span> npm install</code><code><span>$</span> npm start</code></div>
+      <p class="launch-address">Then visit <b>localhost:3000</b></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <a class="footer-brand" href="/">little server lab <span>✳</span></a>
+      <p>A hands-on introduction to Node.js. <span>Made for learning, not for launch.</span></p>
+      <a class="back-top" href="#">Back to top ↑</a>
+    </div>
+  </footer>
+</body>
+</html>

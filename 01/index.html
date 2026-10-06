@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aarav Menon — Personal Profile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=Space+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== HEADER / NAV ===== -->
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a href="#top" class="brand">AM<span class="brand-dot">.</span></a>
+      <nav class="nav">
+        <a href="#about">About</a>
+        <a href="#education">Education</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== HERO / INDEX CARD ===== -->
+  <section id="top" class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-text">
+        <p class="eyebrow">Student · AI &amp; Data Science</p>
+        <h1>Aarav Menon</h1>
+        <p class="tagline">I build small, careful things on the web — mostly with HTML, CSS and a slowly growing list of frameworks.</p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-solid">See my work</a>
+          <a href="#contact" class="btn btn-outline">Get in touch</a>
+        </div>
+      </div>
+
+      <div class="index-card" aria-hidden="false">
+        <div class="index-card-pin"></div>
+        <p class="card-label">Field notes</p>
+        <dl>
+          <dt>Based in</dt><dd>Coimbatore, India</dd>
+          <dt>Studying</dt><dd>B.Tech, AI &amp; Data Science</dd>
+          <dt>Interested in</dt><dd>Web dev, ML, UI systems</dd>
+          <dt>Currently</dt><dd>Learning React &amp; Node.js</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section id="about" class="section">
+    <div class="wrap">
+      <h2><span class="section-no">01</span> About</h2>
+      <div class="about-grid">
+        <p class="about-copy">
+          I'm a third-year engineering student who likes taking things apart to see how they're built —
+          web pages included. Outside of coursework, I spend time writing small scripts, tinkering with
+          layout and typography, and reading about how data-driven products get designed. I care about
+          writing code that's easy to read a second time, not just easy to write the first time.
+        </p>
+        <ul class="about-facts">
+          <li><strong>Focus areas</strong> Front-end development, data structures, applied ML</li>
+          <li><strong>Tools I reach for</strong> VS Code, Git, Figma</li>
+          <li><strong>Right now</strong> Building small full-stack projects to learn by doing</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EDUCATION ===== -->
+  <section id="education" class="section alt">
+    <div class="wrap">
+      <h2><span class="section-no">02</span> Education</h2>
+      <ol class="timeline">
+        <li>
+          <span class="timeline-year">2023 — 2027</span>
+          <div class="timeline-body">
+            <h3>B.Tech, Artificial Intelligence &amp; Data Science</h3>
+            <p>KPR Institute of Engineering and Technology · CGPA 8.4 / 10</p>
+          </div>
+        </li>
+        <li>
+          <span class="timeline-year">2022 — 2023</span>
+          <div class="timeline-body">
+            <h3>Higher Secondary (Class XII)</h3>
+            <p>Computer Science stream · 92%</p>
+          </div>
+        </li>
+        <li>
+          <span class="timeline-year">2020 — 2021</span>
+          <div class="timeline-body">
+            <h3>Secondary School (Class X)</h3>
+            <p>CBSE Board · 95%</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===== SKILLS ===== -->
+  <section id="skills" class="section">
+    <div class="wrap">
+      <h2><span class="section-no">03</span> Skills</h2>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <h3>Languages</h3>
+          <ul class="tag-list">
+            <li>HTML5</li><li>CSS3</li><li>JavaScript</li><li>Python</li><li>Java</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <h3>Frameworks &amp; Tools</h3>
+          <ul class="tag-list">
+            <li>React.js</li><li>Node.js</li><li>Express</li><li>MongoDB</li><li>Git</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <h3>Currently learning</h3>
+          <ul class="tag-list">
+            <li>REST APIs</li><li>Data Visualization</li><li>Machine Learning</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROJECTS ===== -->
+  <section id="projects" class="section alt">
+    <div class="wrap">
+      <h2><span class="section-no">04</span> Projects</h2>
+      <div class="project-grid">
+        <article class="project-card">
+          <p class="project-tag">Web</p>
+          <h3>Task Manager</h3>
+          <p>A lightweight to-do list app built with vanilla JavaScript — add, complete and delete tasks with data persisted in local storage.</p>
+        </article>
+        <article class="project-card">
+          <p class="project-tag">Full-stack</p>
+          <h3>Notes App</h3>
+          <p>A notes-taking application with a Node.js and Express backend, storing entries in MongoDB with full CRUD support.</p>
+        </article>
+        <article class="project-card">
+          <p class="project-tag">React</p>
+          <h3>Auth Starter</h3>
+          <p>A login and registration flow built in React, using hooks to manage form state and client-side validation.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section id="contact" class="section contact">
+    <div class="wrap contact-grid">
+      <div>
+        <h2><span class="section-no">05</span> Contact</h2>
+        <p class="contact-copy">Happy to talk about projects, coursework, or anything web-dev related.</p>
+      </div>
+      <div class="contact-details">
+        <p><span>Email</span><a href="mailto:aarav.menon@example.com">aarav.menon@example.com</a></p>
+        <p><span>Phone</span><a href="tel:+910000000000">+91 00000 00000</a></p>
+        <div class="social-row">
+          <a href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://linkedin.com/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://twitter.com/" target="_blank" rel="noopener">Twitter</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>&copy; 2026 Aarav Menon. Built with HTML &amp; CSS.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
